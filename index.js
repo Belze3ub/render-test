@@ -7,7 +7,6 @@ const Person = require('./module/person');
 const app = express();
 
 app.use(express.json());
-app.use(express.static('dist'));
 
 morgan.token('body', function (req) {
   if (req.method === 'POST') {
@@ -18,6 +17,8 @@ morgan.token('body', function (req) {
 app.use(morgan(':method :url :response-time ms :body'));
 
 app.use(cors());
+
+app.use(express.static('dist'));
 
 app.get('/api/persons', (request, response) => {
   Person.find({}).then((persons) => {
